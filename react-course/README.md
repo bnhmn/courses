@@ -1,6 +1,6 @@
 # React Course Resources
 
-This repository contains my personal code files of the [Udemy React course](https://www.udemy.com/course/react-the-complete-guide-incl-redux/).
+This folder contains my personal code files of the [Udemy React course](https://www.udemy.com/course/react-the-complete-guide-incl-redux/).
 
 [React](https://react.dev) is a JavaScript library for building web and native user interfaces.
 
