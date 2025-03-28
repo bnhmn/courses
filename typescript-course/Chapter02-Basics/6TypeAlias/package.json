@@ -1,0 +1,13 @@
+{
+  "name": "typescriptintro",
+  "version": "1.0.0",
+  "description": "Run in Browser with 'npm start' or locally with 'ts-node'",
+  "main": "script.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc -p .",
+    "start": "lite-server & tsc --watch -p ."
+  },
+  "author": "Benjamin Heimann",
+  "license": "ISC"
+}
