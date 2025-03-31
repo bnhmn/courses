@@ -1,3 +1,3 @@
 # Course Materials
 
-My personal materials from the courses and demo projects I have completed.
+My personal materials from the Udemy courses I have completed.
