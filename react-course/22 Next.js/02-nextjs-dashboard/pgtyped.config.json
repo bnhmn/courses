@@ -1,0 +1,12 @@
+{
+  "srcDir": "./db/queries",
+  "transforms": [
+    {
+      "mode": "sql",
+      "include": "**/*.sql",
+      "emitTemplate": "./db/queries/generated/{{name}}.ts"
+    }
+  ],
+  "failOnError": false,
+  "camelCaseColumnNames": false
+}
