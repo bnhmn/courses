@@ -1,36 +1,36 @@
-import { Avatar, Box, Heading, Progress, Spacer, VStack } from '@chakra-ui/react';
+import { Avatar, Heading, Progress } from '@chakra-ui/react';
 
 import { LobbyType } from '../backend/types/Lobby';
 
 export function Lobby({ lobby }: { lobby: LobbyType }) {
-  const title = lobby.state === 'ready' ? 'Game is starting...' : 'Waiting for opponent...';
+  const title = lobby.state === 'ready' ? 'Game is starting' : 'Waiting Room';
   const players = lobby.players;
   return (
-    <VStack align="stretch" spacing={4}>
+    <div id="lobby">
       <Heading size="sm">{title}</Heading>
 
-      {players.map((player, index) => (
-        <LobbyPlayer key={index} name={player.name} isLast={index == players.length - 1} />
-      ))}
-
-      <Spacer />
+      <div className="players">
+        {players.map((player, index) => (
+          <LobbyPlayer key={index} name={player.name} isLast={index == players.length - 1} />
+        ))}
+      </div>
 
       <Progress isIndeterminate marginBottom="1rem" />
-    </VStack>
+    </div>
   );
 }
 
 function LobbyPlayer({ name, isLast }: { name: string; isLast: boolean }) {
   return (
     <>
-      <Box w="100%" p={4}>
+      <div className="player">
         <Avatar name={name} />
         <span className="player-name">{name}</span>
-      </Box>
+      </div>
       {!isLast && (
-        <Box>
+        <div>
           <span className="player-name">vs</span>
-        </Box>
+        </div>
       )}
     </>
   );

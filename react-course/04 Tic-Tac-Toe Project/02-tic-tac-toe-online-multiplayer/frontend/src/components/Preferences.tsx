@@ -24,7 +24,7 @@ export function Preferences({ onJoinGame = () => null }: { onJoinGame: (name: st
   }
 
   return (
-    <Stack spacing={8} padding="1rem">
+    <Stack id="preferences" spacing={8} padding="1rem">
       <FormControl>
         <FormLabel>Name</FormLabel>
         <InputGroup>

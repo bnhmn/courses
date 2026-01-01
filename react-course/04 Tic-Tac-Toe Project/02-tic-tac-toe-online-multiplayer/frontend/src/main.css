@@ -1,251 +1,292 @@
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Roboto+Slab:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-header {
-  font-family: 'Caprasimo';
-  font-size: 3rem;
-  text-align: center;
-  color: #3f3b00;
-  margin: 3rem auto 3rem auto;
+/* ================= Design Tokens ================= */
+:root {
+  --bg-page: #f1f5ff;
+  --bg-page-accent: #e0e7ff;
+
+  --surface: #eff6ff; /* Game-Container */
+  --surface-strong: #ffffff; /* Cards / Buttons */
+  --surface-hover: #ffffff;
+  --border: #dbeafe;
+  --radius: 14px;
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-heading: #1e3a8a;
+  --button-text: #ffffff;
+  --button-bg-active: #2563eb;
+  --button-bg-disabled: #93c5fd;
+  --accent: #2563eb;
+  --form-border: #3c65a9;
 }
 
+/* ================= Base ================= */
 body {
-  background: radial-gradient(circle at center, rgba(241, 210, 70, 0.98), rgba(250, 176, 103, 0.87)) !important;
-  background-repeat: repeat !important;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+  font-family: Inter, system-ui, sans-serif;
 }
 
-#game-container {
-  min-width: 30rem;
-  max-width: 45rem;
-  margin: 3rem 0.5rem;
-  padding: 3rem;
-  border-radius: 6px;
-  background: linear-gradient(#383624, #282617);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  justify-self: center;
-  position: relative; /* required for #game-over overlay */
+header h1 {
+  margin: 0.75rem 0 1rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-align: center;
 }
 
-@media (max-width: 500px) {
-  #game-container {
-    min-width: calc(100% - 1rem);
-    max-width: calc(100% - 1rem);
-    padding: 2rem;
+@media (min-width: 768px) {
+  header h1 {
+    font-size: 2.3rem;
+    margin-bottom: 1.5rem;
   }
 }
 
-#players {
-  padding: 1rem;
-  justify-items: center;
-  margin-bottom: 2rem;
+/* ================= Game Container ================= */
+#game-container {
+  width: 90vw;
+  max-width: 30rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  position: relative; /* required for game-over overlay */
+
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 12px 28px rgba(59, 130, 246, 0.18), 0 4px 10px rgba(30, 58, 138, 0.06);
 }
 
-.player {
-  margin: 2px;
-  border: 2px solid transparent;
-  padding: 0.5rem 1rem;
-}
-
-.player.active.own {
-  border-color: #f6e35a;
-  animation: pulse-yellow 2s infinite ease-in-out;
-}
-.player.active.own .player-name,
-.player.active.own .player-symbol {
-  color: #f6e35a;
-}
-
-.player.active.other {
-  border-color: #a5a38e;
-  animation: pulse-grey 2s infinite ease-in-out;
-}
-
-.player-name {
-  display: inline-block;
-  width: 10rem;
-  font-size: 1rem;
-  color: #e1dec7;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0.5rem;
-  border-radius: 4px;
-  text-overflow: ellipsis;
-  text-align: center;
-}
-
-.player-symbol {
-  color: #e1dec7;
-}
-
+/* ================= Game Board ================= */
 #game-board {
+  display: grid;
   justify-content: center;
+  gap: clamp(0.5rem, 3vw, 1rem);
 }
 
 #game-board button {
-  border-radius: 1px;
-  background: #aca788;
-  color: #3f3b00;
-  font-family: 'Caprasimo', cursive;
-  font-size: 5rem;
-  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-strong);
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), background 120ms ease, border-color 120ms ease;
+
+  font-size: clamp(2rem, 15vw, 5rem);
+  font-weight: 700;
+  color: var(--text-primary);
   cursor: pointer;
+}
+
+#game-board button:hover {
+  background: var(--surface-hover);
+}
+
+#game-board button:active {
+  transform: scale(0.94);
 }
 
 #game-board button:disabled {
-  cursor: default;
   opacity: 1;
+  cursor: default;
 }
 
+#game-board button:not(:empty) {
+  animation: button-pop 180ms ease-out;
+}
+
+/* ================= Players ================= */
+
+#players {
+  display: grid;
+  /* Use 'minmax(0, 1fr)' instead of '1fr' to make long player names not break the grid layout */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.65rem 0.75rem;
+  gap: 0.5rem;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-strong);
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.player-name {
+  flex: 1;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.player-symbol {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.player.active {
+  border-left: 4px solid var(--accent);
+  padding-left: calc(0.75rem - 3px);
+  transform: translateX(2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);
+}
+
+.player.active .player-name,
+.player.active .player-symbol {
+  color: var(--accent);
+}
+
+/* ================= Game Over Overlay ================= */
 #game-over {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(40, 38, 23, 0.95);
-  animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52) forwards;
+  justify-content: center;
+  position: absolute;
+
+  inset: 0;
+  z-index: 10;
+  gap: 1.2rem;
+
+  border-radius: var(--radius);
+  background: rgba(219, 234, 254, 0.8); /* slightly transparent */
+  backdrop-filter: blur(6px);
+  animation: gameover-enter 600ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 #game-over h2 {
-  font-family: 'Caprasimo', cursive;
-  font-size: 4rem;
-  font-weight: normal;
-  text-align: center;
-  color: #fcd256;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
 }
 
 #game-over p {
-  font-size: 2rem;
-  color: #e1dec7;
+  font-size: 1rem;
+  color: var(--text-secondary);
 }
 
-@media (max-width: 500px) {
-  #game-over h2 {
-    font-size: 3rem;
-  }
-  #game-over p {
-    font-size: 1.5rem;
-  }
+#game-over p strong {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 #game-over button {
-  font-size: 1.5rem;
-  color: #fcd256;
-  border: 2px solid #fcd256;
-  border-radius: 4px;
-  padding: 0.2rem 1rem;
-  transition: all 0.2s, color 0.2s;
-  box-shadow: 0 0 8px rgba(255, 187, 0, 0.4);
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--button-text);
+  cursor: pointer;
+
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--button-bg-active);
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms ease, background 120ms ease;
 }
 
 #game-over button:hover {
-  background: #fcd256;
-  color: #3f3b00;
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 187, 0, 0.8);
+  background: var(--button-bg-active);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
 }
 
-#log {
-  max-width: 20rem;
-  color: #3f3b00;
-  list-style: none;
-  margin: 2rem auto;
-  padding: 0;
-  text-align: center;
+#game-over button:active {
+  transform: scale(0.96);
 }
 
-#log li {
-  border-radius: 4px;
-  animation: slide-in-from-left 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-  margin: 0.75rem;
+/* ================= Preferences ================= */
+#preferences label {
+  font-weight: 500;
+  color: var(--text-heading);
 }
 
-#log li.highlighted {
-  background-color: #3f3b00;
-  color: white;
+#preferences input,
+#preferences select {
+  border: 1px solid var(--form-border);
+  color: var(--text-heading);
 }
 
-#game-hints {
-  text-align: center;
-  color: #46432f;
+#preferences .chakra-input__right-addon {
+  border: 1px solid var(--form-border);
+  background: var(--surface);
 }
 
-#game-hints h2 {
-  font-family: 'Caprasimo', cursive;
-  font-size: 2rem;
-  margin: 0;
+#preferences button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  background: var(--button-bg-active);
+
+  font-weight: 600;
+  color: var(--button-text);
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
 }
 
-#game-hints ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+#preferences button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
 }
 
-#game-hints button {
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: #23221f;
-  font: inherit;
+#preferences button:disabled {
+  background: var(--button-bg-disabled);
+  transform: none;
+  box-shadow: none;
+}
+
+/* ================= Lobby ================= */
+#lobby {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#lobby h2 {
+  color: var(--text-heading);
+}
+
+#lobby .players {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes slide-in-from-left {
+#lobby .chakra-avatar {
+  border: 2px solid var(--accent);
+}
+
+#lobby .player-name {
+  margin-left: 0.5rem;
+  font-weight: 500;
+  color: var(--text-heading);
+  vertical-align: middle;
+}
+
+/* ================= Animations ================= */
+@keyframes button-pop {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes gameover-enter {
   0% {
     opacity: 0;
-    transform: translateX(-30%);
+    transform: scale(0.96);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse-yellow {
-  0% {
-    border-color: #f6e35a;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0.4);
-  }
-  50% {
-    border-color: #f8c031;
-    box-shadow: 0 0 0 0.5rem rgba(248, 165, 49, 0);
-  }
-  100% {
-    border-color: #f6e35a;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0);
-  }
-}
-
-@keyframes pulse-grey {
-  0% {
-    border-color: #c3c0ab;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0.4);
-  }
-  50% {
-    border-color: #9b937d;
-    box-shadow: 0 0 0 0.5rem rgba(248, 165, 49, 0);
-  }
-  100% {
-    border-color: #c3c0ab;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0);
-  }
-}
-
-/* Fancy animation for showing the "Game Over" element */
-@keyframes pop-in {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  80% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
     transform: scale(1);
   }
 }

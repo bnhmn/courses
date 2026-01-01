@@ -12,17 +12,11 @@ interface GameBoardProps {
 export function GameBoard({ gameTurns, gridSize, onSelectSquare, isActive = true }: GameBoardProps) {
   return (
     // For base,md see https://v2.chakra-ui.com/docs/styled-system/responsive-styles#the-object-syntax
-    <Grid
-      id="game-board"
-      templateColumns={{ base: `repeat(${gridSize}, 6rem)`, md: `repeat(${gridSize}, 8rem)` }}
-      gap={6}
-    >
+    <Grid id="game-board" templateColumns={`repeat(${gridSize}, 1fr)`}>
       {createGrid(gameTurns, gridSize).map((row, rowNum) =>
         row.map((symbol, colNum) => (
           <Button
             key={'' + rowNum + colNum}
-            height={{ base: '6rem', md: '8rem' }}
-            width={{ base: '6rem', md: '8rem' }}
             onClick={() => onSelectSquare(rowNum, colNum)}
             disabled={symbol !== null || !isActive}
           >

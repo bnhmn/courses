@@ -11,7 +11,7 @@ interface PlayersProps {
 export function Players({ players, activePlayerNumber, ownPlayerNumber }: PlayersProps) {
   players = players.toSorted((p1, _) => (p1.number === ownPlayerNumber ? -1 : 0));
   return (
-    <Box id="players" display={{ base: 'block', md: 'flex' }} gap="1rem" justifyContent="space-between">
+    <Box id="players">
       {players.map(({ number, symbol, name }) => (
         <HStack key={symbol} className={playerClass(number, activePlayerNumber, ownPlayerNumber)} gap="0.5rem">
           <Avatar name={name} size="sm" />
