@@ -14,7 +14,7 @@ export const Route = createFileRoute('/events/$eventId/')({
 });
 
 function Component() {
-  // https://tanstack.com/router/latest/docs/framework/react/guide/navigation
+  // https://tanstack.com/router/latest/docs/guide/navigation
   const navigate = useNavigate();
   const { eventId } = Route.useParams();
   const { event } = useEventData(eventId);

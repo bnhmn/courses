@@ -24,7 +24,7 @@ export interface NewEventType {
 // https://tanstack.com/query/latest/docs/framework/react/overview
 
 // We use TanStack Query together with TanStack Router, as described on this page:
-// https://tanstack.com/router/latest/docs/framework/react/guide/external-data-loading.
+// https://tanstack.com/router/latest/docs/guide/external-data-loading.
 // In this setup, each query requires a loader to initially load data into the cache and a hook to provide data to the
 // components. Thanks to caching, the user only experiences a loading delay on the first page visit. On subsequent
 // visits, the cached result is displayed immediately. However, the query still runs again in the background, and once
@@ -63,7 +63,7 @@ export function useEventData(eventId: string) {
   const event = events.filter((event) => event.id === eventId).at(0);
   if (!event) {
     // Note: Your components has to be wrapped in <CatchNotFound> if you want to use notFound() from within a component
-    // https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors#throwing-not-found-errors-in-components
+    // https://tanstack.com/router/latest/docs/guide/not-found-errors#throwing-not-found-errors-in-components
     throw notFound();
   }
   return { event, ...rest };
@@ -94,7 +94,11 @@ async function refreshEventsData() {
 }
 
 export async function createEvent(event: NewEventType) {
-  const createdEvent = await fetchFromBackend<EventType>({ method: 'POST', uri: '/events', body: event });
+  const createdEvent = await fetchFromBackend<EventType>({
+    method: 'POST',
+    uri: '/events',
+    body: event,
+  });
   await refreshEventsData();
   return createdEvent;
 }
@@ -158,7 +162,7 @@ async function fetchFromBackend<ReturnType = void>(
     const error = `<== Received error ${resp.status} (${resp.statusText})\n${responseBody}`;
     console.error(error);
     if (resp.status === 404) {
-      // https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors
+      // https://tanstack.com/router/latest/docs/guide/not-found-errors
       throw notFound();
     } else {
       throw error;

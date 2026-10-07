@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useAuth } from '../lib/auth-context';
 
 // This is an index route. It is displayed when the user visits the /account page, but not one of its subpages.
-// https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing#flat-routes
+// https://tanstack.com/router/latest/docs/guide/file-based-routing#flat-routes
 
 export const Route = createFileRoute('/account/')({
   component: Component,

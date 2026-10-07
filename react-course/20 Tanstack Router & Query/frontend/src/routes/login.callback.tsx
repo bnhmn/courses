@@ -5,7 +5,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { LoginErrorPage } from '../components/ErrorPages';
 
 export const Route = createFileRoute('/login/callback')({
-  // https://tanstack.com/router/latest/docs/framework/react/guide/search-params#validating-search-params
+  // https://tanstack.com/router/latest/docs/guide/search-params#validating-search-params
   validateSearch: z.object({
     returnTo: z.string().default('/'),
   }),

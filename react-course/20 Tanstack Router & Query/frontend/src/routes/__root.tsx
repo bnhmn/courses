@@ -7,11 +7,11 @@ import { AuthContext } from '../lib/auth-context';
 
 // The root route is the top-most route in the entire tree and encapsulates all other routes as children.
 // It has no path, it is always matched, and its component is always rendered.
-// https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#the-root-route
+// https://tanstack.com/router/latest/docs/routing/routing-concepts#the-root-route
 
 export const Route = createRootRouteWithContext<AuthContext>()({
   // Initialize the auth context before any page loads:
-  // https://tanstack.com/router/latest/docs/framework/react/guide/router-context
+  // https://tanstack.com/router/latest/docs/guide/router-context
   beforeLoad: async ({ context }) => await context.refreshAuthContext(),
 
   component: Component,
@@ -39,7 +39,7 @@ function Component() {
       </GridItem>
       <GridItem area={'main'}>
         <Flex as="main" direction="column" w="100%" p={{ base: 5, sm: 10 }} alignItems="center">
-          {/* https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors#throwing-not-found-errors-in-components */}
+          {/* https://tanstack.com/router/latest/docs/guide/not-found-errors#throwing-not-found-errors-in-components */}
           <CatchNotFound fallback={NotFoundPage} onCatch={(error) => console.log(error)}>
             {/* Outlet is the place where Tanstack Router inserts the child content */}
             <Outlet />

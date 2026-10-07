@@ -21,21 +21,21 @@ import { theme } from './theme.ts';
 // Create a new router instance from the generated route tree
 const router = createRouter({
   routeTree,
-  // https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors
+  // https://tanstack.com/router/latest/docs/guide/not-found-errors
   defaultNotFoundComponent: NotFoundPage,
   defaultErrorComponent: GenericErrorPage,
   defaultPendingComponent: LoadingSpinner,
   // Don't show a loading spinner after the first page load because we use our own navigation progress bar then.
   defaultPendingMs: Infinity,
   // You can use the router context to share global state like authentication details with all routes:
-  // https://tanstack.com/router/latest/docs/framework/react/guide/router-context
+  // https://tanstack.com/router/latest/docs/guide/router-context
   context: undefined!, // Set by RouterProviderWithAuthContext
   // Disable router caching because we use the caching of TanStack Query
-  // https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#using-shouldreload-and-gctime-to-opt-out-of-caching
+  // https://tanstack.com/router/latest/docs/guide/data-loading#using-shouldreload-and-gctime-to-opt-out-of-caching
   defaultGcTime: 0,
   defaultPreloadStaleTime: 0,
   // Enables link preloading which can increase the perceived performance of the application with very little effort.
-  // https://tanstack.com/router/latest/docs/framework/react/guide/navigation#link-preloading
+  // https://tanstack.com/router/latest/docs/guide/navigation#link-preloading
   //defaultPreload: 'intent',
   // Restore scroll position when the user navigates back
   scrollRestoration: true,

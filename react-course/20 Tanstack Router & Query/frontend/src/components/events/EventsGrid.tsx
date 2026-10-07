@@ -19,7 +19,7 @@ export function EventsGrid({ events }: { events: EventType[] }) {
         >
           {
             // This is a link to another page:
-            // https://tanstack.com/router/latest/docs/framework/react/guide/navigation#link-component
+            // https://tanstack.com/router/latest/docs/guide/navigation#link-component
           }
           <CardBody as={Link} to={`/events/${event.id}`}>
             <Stack direction="column" gap="3">

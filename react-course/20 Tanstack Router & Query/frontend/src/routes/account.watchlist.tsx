@@ -8,11 +8,11 @@ import { ensureEventsData, useEventsData } from '../lib/backend';
 // Although the route path of a file route is automatically derived from the source code file path, we need
 // to specify it explicitly as an argument to the function so that TypeScript knows that this path exists.
 // Don't worry: the TanStack plugin will automatically adjust the path here when you move the file around.
-// https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#anatomy-of-a-route
+// https://tanstack.com/router/latest/docs/guide/routing-concepts#anatomy-of-a-route
 
 export const Route = createFileRoute('/account/watchlist')({
   // We can fetch data through a loader. TanStack executes the loader before rendering the component.
-  // https://tanstack.com/router/latest/docs/framework/react/guide/data-loading
+  // https://tanstack.com/router/latest/docs/guide/data-loading
   loader: ensureEventsData,
   component: Component,
 });

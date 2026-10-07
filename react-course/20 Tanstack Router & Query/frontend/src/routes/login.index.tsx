@@ -6,7 +6,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useAuth } from '../lib/auth-context';
 
 export const Route = createFileRoute('/login/')({
-  // https://tanstack.com/router/latest/docs/framework/react/guide/search-params#validating-search-params
+  // https://tanstack.com/router/latest/docs/guide/search-params#validating-search-params
   validateSearch: z.object({
     returnTo: z.string().default('/'),
   }),
